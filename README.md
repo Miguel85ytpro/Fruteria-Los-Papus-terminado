@@ -24,4 +24,3 @@ pyproject.toml
 ## Carcamo Limon Miguel Angel
 ### Es un inventario de una fruteria donde los empleados meten su nombre y contraseña , tambien se puede cambiar la contraseña si la olvidaste
 
-<img width="922" height="1302" alt="Imagen de WhatsApp 2025-09-17 a las 17 25 50_2ae7e6bf" src="https://github.com/user-attachments/assets/efe9d38f-b53e-4286-b697-d4f44c21a960" />
