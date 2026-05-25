@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-5 bg-white p-4 border rounded shadow-sm">
+        <h3 class="text-center mb-4">Recuperar Contraseña</h3>
+        
+        {% if error %}<div class="alert alert-danger py-2 small">{{ error }}</div>{% endif %}
+        {% if info %}<div class="alert alert-info py-2 small">{{ info }}</div>{% endif %}
+
+        {% if otp_generado %}
+        <div class="alert alert-success text-center mb-4">
+            <small>Revisa tu bandeja de entrada. Introduce el código recibido:</small>
+        </div>
+
+        <form action="/verificar-otp" method="POST">
+            <input type="hidden" name="correo" value="{{ correo_otp }}">
+            <div class="mb-3">
+                <label class="form-label fw-bold">Introduce los 6 dígitos:</label>
+                <input type="text" name="codigo_otp" class="form-control text-center fs-4 fw-bold" placeholder="000000" required maxlength="6">
+            </div>
+            <button type="submit" class="btn btn-success w-100 fw-bold">Verificar Código</button>
+        </form>
+
+        {% else %}
+        <p class="text-muted text-center small">Ingresa tu correo para recibir un código de seguridad de 6 dígitos.</p>
+        
+        <form method="POST">
+            <div class="mb-3">
+                <label class="form-label">Correo Electrónico</label>
+                <input type="email" name="correo" class="form-control" placeholder="correo@ejemplo.com" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 fw-bold">Enviar Código al Correo</button>
+        </form>
+        {% endif %}
+
+        <div class="text-center mt-3">
+            <a href="/login" class="small text-decoration-none text-muted">Volver al Login</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

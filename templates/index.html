@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="text-center mb-5">
+    <h1>Bienvenido {{ session.user if session.user else 'a Frutería Los Papus' }}</h1>
+<p class="small text-muted">Un código hecho para la gestión de un inventario de una frutería para la clase de Treviño.</p>
+</div>
+
+{% if session.user %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow border-0">
+            <div class="card-header bg-dark text-white text-center fw-bold">
+            INVENTARIO
+            </div>
+            <div class="card-body">
+                <table class="table table-sm align-middle">
+                    <thead>
+                        <tr>
+                            <th>Fruta</th>
+                            <th>Stock</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in productos %}
+                        <tr>
+                            <td>{{ p.nombre }}</td>
+                            <td>{{ p.stock }} KG</td>
+                            <td>
+                                <span class="badge {% if p.estado == 'Maduro' %}bg-success{% elif p.estado == 'Verde' %}bg-warning text-dark{% else %}bg-danger{% endif %}">
+                                    {{ p.estado }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="text-center mt-3">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="text-center">
+    <p>Inicia sesión o crea una cuenta para gestionar los productos.</p>
+    <a href="/login" class="btn btn-success">Iniciar Sesión</a>
+</div>
+{% endif %}
+{% endblock %}
