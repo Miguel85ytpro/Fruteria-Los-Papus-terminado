@@ -28,7 +28,7 @@ productos_col = db['productos']
 def index():
     productos = []
     if 'user' in session:
-        productos = list(productos_col.find())
+        productos = list(productos_col.find({"usuario": session['user']}))
     return render_template("index.html", productos=productos)
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -69,30 +69,39 @@ def logout():
 def inventario():
     if 'user' not in session:
         return redirect(url_for('login'))
-    productos = list(productos_col.find())
+    productos = list(productos_col.find({"usuario": session['user']}))
     return render_template("inventario.html", productos=productos)
 
 @app.route("/inventario/agregar", methods=['POST'])
 def agregar_producto():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    
     nombre = request.form.get('nombre')
     precio = request.form.get('precio')
     stock = request.form.get('stock')
     estado = request.form.get('estado')
+    
     productos_col.insert_one({
         "nombre": nombre,
         "precio_kg": float(precio),
         "stock": float(stock),
-        "estado": estado
+        "estado": estado,
+        "usuario": session['user']
     })
     return redirect(url_for('inventario'))
 
 @app.route("/inventario/editar/<id_prod>", methods=['POST'])
 def editar_producto(id_prod):
+    if 'user' not in session:
+        return redirect(url_for('login'))
+        
     nuevo_estado = request.form.get('estado')
     nuevo_stock = request.form.get('stock')
     nuevo_precio = request.form.get('precio')
+    
     productos_col.update_one(
-        {"_id": ObjectId(id_prod)},
+        {"_id": ObjectId(id_prod), "usuario": session['user']},
         {"$set": {
             "estado": nuevo_estado, 
             "stock": float(nuevo_stock),
@@ -103,7 +112,10 @@ def editar_producto(id_prod):
 
 @app.route("/inventario/eliminar/<id_prod>")
 def eliminar_producto(id_prod):
-    productos_col.delete_one({"_id": ObjectId(id_prod)})
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    
+    productos_col.delete_one({"_id": ObjectId(id_prod), "usuario": session['user']})
     return redirect(url_for('inventario'))
 
 @app.route("/recuperar", methods=['GET', 'POST'])
