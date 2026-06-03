@@ -20,12 +20,17 @@ requirements.txt
 pyproject.toml
 
 ### Instrucciones
-Para correr de forma correcta el codigo crearemos un entorno virtual y lo activaremos
+La primera forma seria usando uv sync para sincronizar de forma Correcta el entorno virtual
+luego correremos el codigo con uv run app.py
+
+una segunda forma para correr de forma correcta el codigo crearemos un entorno virtual y lo activaremos
 
 una vez activo descargaremos el contenido de requirements.txt en la terminal con este comando pip install -r requirements.txt
 y tambien actualizaremos el pip con este comando  python.exe -m pip install --upgrade pip
 
-una ves todo descargado buscaremos ngrok en la microsoft store y lo descargaremos (es la forma mas segura de descargar porque desde el navegador lo detecta como virus)
+###Para usar el codigo en linea usando Ngrok
+
+buscaremos ngrok en la microsoft store y lo descargaremos (es la forma mas segura de descargar porque desde el navegador lo detecta como virus)
 <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/6006b892-00e4-4ef0-b91b-a74d47d4975f" />
 
 mientras se descarga o despues de descargar Ngrok iniciaremos sesion en ngrok o creara una cuenta en la pagina web
